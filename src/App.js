@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import ItemBox from './components/ItemBox';
+import Pagination from './components/Pagination';
 
 
 const page_size = 10;
@@ -34,32 +36,18 @@ function App() {
   return (
     <div className="">
       <header className="">
-        <img src={logo} className="App-logo" alt="logo" />
-<h1>
+<h1 className='center'>
   pagination
 </h1>
     <div className='parent'>
     {product_data.slice(page_size*currentPage, page_size*currentPage +  page_size)?.map((some, index)=>{
       return(
-        <div className='display-item-box'>
-        <h1>
-        {some.title}
-        </h1>
-       <img src={some?.thumbnail}  />
-        </div>
+       <ItemBox title={some?.title} imageSrc={some?.thumbnail}/>
       )
     })}
     </div>
     <div className='pagination'>
-       
- 
-    <button disabled={currentPage === 0} onClick={()=>{setCurrentPage((prev)=>prev-1)}}>&lt;</button>
-    {(new Array(totalPages)).fill("").map((some, index)=>{
-      return (
-        <button  onClick={()=>{setCurrentPage(index)}}>{index}</button>
-      )
-    })}
-    <button disabled={currentPage === end} onClick={()=>{setCurrentPage((prev)=>prev+1)}}>&gt;</button>
+    <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} end={end}/>   
     </div>
       </header>
     </div>
